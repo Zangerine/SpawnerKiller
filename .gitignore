@@ -1,2 +1,4 @@
 .idea
 SpawnerKiller.iml
+target
+.gitignore
