@@ -1,6 +1,6 @@
 name: ${project.artifactId}
 version: ${project.version}
-main: tc.spawnerkiler.SpawnerKiller
+main: tc.spawnerkiller.SpawnerKiller
 description: Spawner Instant Killer
 author: FurkanZhlp
 website: https://github.com/FurkanZhlp/SpawnerKiller
