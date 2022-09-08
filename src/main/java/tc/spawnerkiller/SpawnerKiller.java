@@ -19,13 +19,11 @@ import java.util.List;
 
 public class SpawnerKiller extends JavaPlugin implements Listener {
 
-    List<World> whitelistedWorlds = new ArrayList<>();
+    List<String> whitelistedWorlds = new ArrayList<>();
 
     @Override
     public void onEnable() {
-        for(String s : getConfig().getStringList("world-whitelist")) {
-            whitelistedWorlds.add(Bukkit.getWorld(s));
-        }
+        whitelistedWorlds.addAll(getConfig().getStringList("world-whitelist"));
         saveDefaultConfig();
         Bukkit.getPluginManager().registerEvents(this,this);
     }
@@ -34,7 +32,8 @@ public class SpawnerKiller extends JavaPlugin implements Listener {
     public void spawnEvent(SpawnerSpawnEvent e) {
         Entity en = e.getEntity();
         World w = e.getEntity().getWorld();
-        if(whitelistedWorlds.contains(w)) {
+        String n = w.getName();
+        if(whitelistedWorlds.contains(n)) {
             if (e.getEntityType() == EntityType.BLAZE) {
                 if (Math.random() < 0.5) {
                     e.getEntity().getWorld().dropItemNaturally(e.getLocation(), new ItemStack(Material.BLAZE_ROD, 1));
@@ -68,7 +67,8 @@ public class SpawnerKiller extends JavaPlugin implements Listener {
     @EventHandler
     public void riderBlockEvent(CreatureSpawnEvent e) {
         World w = e.getEntity().getWorld();
-        if(whitelistedWorlds.contains(w)) {
+        String n = w.getName();
+        if(whitelistedWorlds.contains(n)) {
             if(e.getSpawnReason().equals(CreatureSpawnEvent.SpawnReason.SPAWNER)) e.setCancelled(true);
         }
     }
